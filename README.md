@@ -21,4 +21,12 @@ result is the max flow, the mi, cost and the flow in each edge of the graph
 - `all` to compute all the previous algorithm
 
 **Note:** In the result of `max_flow` and `max_flow_min_cost` we have edge with
-negative flow. They represent edge that are created in the residual graph
+negative flow. They represent edge that are created in the residual graph.
+
+The format for the input is:
+- The first line contains 4 numbers : numN odes numArcs sourceNode sinkNode, where numNodes is the
+number of nodes of the graph, numArcs is its number of arcs, sourceNode is s, the source node of the flow and
+sinkNode is t, the sink of the flow
+- Then, each line contains the description of an arc under the form: emanatingN ode, terminatingN ode,
+maxCapacity , cost. This defines the arc (emanatingNode, terminatingNode) whose upper bound capacity is
+maxCapacity and whose cost is cost.
