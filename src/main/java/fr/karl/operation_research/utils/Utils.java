@@ -19,7 +19,7 @@ public class Utils {
             int u = queue.poll();
             for (DirectedEdge e : residualGraph.getAdjacencyList().get(u)){
                 int v = e.getEndNode();
-                if (!visited.getOrDefault(v, false) && e.getMaxCapacity() > 0){
+                if (!visited.getOrDefault(v, false) && (e.getMaxCapacity() - Math.abs(e.getFlow())) > 0){
                     queue.add(v);
                     parent.put(v, u);
                     visited.put(v, true);
@@ -41,7 +41,7 @@ public class Utils {
         while (!queue.isEmpty()) {
             int u = queue.poll();
             for(DirectedEdge e : adjacencyList.get(u)){
-                if (e.getMaxCapacity() > 0 && !isVisited.getOrDefault(e.getEndNode(), false)) {
+                if ((e.getMaxCapacity() - Math.abs(e.getFlow())) > 0 && !isVisited.getOrDefault(e.getEndNode(), false)) {
                     queue.add(e.getEndNode());
                     isVisited.put(e.getEndNode(), true);
                 }
@@ -65,7 +65,7 @@ public class Utils {
             int u = queue.poll();
             inQueue.put(u, false);
             for (DirectedEdge e : graph.getAdjacencyList().get(u)){
-                if (e.getMaxCapacity() > 0 && dist.getOrDefault(e.getEndNode(), Float.MAX_VALUE) > dist.getOrDefault(u, Float.MAX_VALUE) + e.getCost()) {
+                if ((e.getMaxCapacity() - Math.abs(e.getFlow())) > 0 && dist.getOrDefault(e.getEndNode(), Float.MAX_VALUE) > dist.getOrDefault(u, Float.MAX_VALUE) + e.getCost()) {
                     dist.put(e.getEndNode(), dist.getOrDefault(u, Float.MAX_VALUE) + e.getCost());
                     parent.put(e.getEndNode(), u);
                     if (!inQueue.getOrDefault(e.getEndNode(), false)) {

@@ -23,6 +23,10 @@ result is the max flow, the mi, cost and the flow in each edge of the graph
 **Note:** In the result of `max_flow` and `max_flow_min_cost` we have edge with
 negative flow. They represent edge that are created in the residual graph.
 
+Here is an example: ` java -jar ./flow_algorithm-1.0-SNAPSHOT.jar -a all --original-flow-only -p /home/karl/Projects/operation_research/project/resources/graph_dataV.txt`
+In this command we compute the max flow, the min cut and the max flow min cut. We print only the flow in edge of 
+the original graph, we don't consider the edge created in the residual graph.
+
 The format for the input is:
 - The first line contains 4 numbers : numN odes numArcs sourceNode sinkNode, where numNodes is the
 number of nodes of the graph, numArcs is its number of arcs, sourceNode is s, the source node of the flow and

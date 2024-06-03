@@ -5,7 +5,6 @@ import fr.karl.operation_research.utils.Utils;
 import org.apache.commons.lang3.SerializationUtils;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class DirectedGraph {
 
@@ -48,14 +47,13 @@ public class DirectedGraph {
                 DirectedEdge e = residualGraph.getAdjacencyList().get(u).get(residualGraph.getEdgePosition(u, v));
                 pathFlow = Math.min(
                         pathFlow,
-                        e.getMaxCapacity()
+                        e.getMaxCapacity() - Math.abs(e.getFlow())
                 );
                 edges.add(e);
             }
             Map<Integer, List<DirectedEdge>> resAdjList = residualGraph.getAdjacencyList();
             for (DirectedEdge e : edges){
-                e.setMaxCapacity(e.getMaxCapacity() - pathFlow);
-                e.setFlow(pathFlow);
+                e.setFlow(e.getFlow() + pathFlow);
                 residualGraph.getAdjacencyList().computeIfAbsent(e.getEndNode(), k -> new ArrayList<>());
                 int insertPosition = residualGraph.getEdgePosition(e.getEndNode(), e.getStartNode());
                 if (insertPosition >= 0){
@@ -85,11 +83,10 @@ public class DirectedGraph {
         int source = sourceNode;
         List<DirectedEdge> minCutEdges = new ArrayList<>();
         Map<Integer, Boolean> isVisited = Utils.reachableVerticesFromSource(residualGraph, source);
-//        Map<Integer, List<DirectedEdge>> adjacencyList = residualGraph.getAdjacencyList();
         Map<Integer, List<DirectedEdge>> adjacencyList = this.adjacencyList;
         for(int u : adjacencyList.keySet()){
             for (DirectedEdge e : adjacencyList.get(u)){
-                if(isVisited.getOrDefault(u, false) && !isVisited.getOrDefault(e.getEndNode(), false) && e.getMaxCapacity() > 0){
+                if(isVisited.getOrDefault(u, false) && !isVisited.getOrDefault(e.getEndNode(), false)){
                     minCutEdges.add(e);
                 }
             }
@@ -112,13 +109,11 @@ public class DirectedGraph {
                 DirectedEdge e = residualGraph.getAdjacencyList().get(u).get(
                         residualGraph.getEdgePosition(u, v)
                 );
-                pathFlow = Math.min(pathFlow, e.getMaxCapacity());
+                pathFlow = Math.min(pathFlow, e.getMaxCapacity() - Math.abs(e.getFlow()));
                 edges.add(e);
             }
 
             for (DirectedEdge e : edges){
-                int u = e.getStartNode();
-                e.setMaxCapacity(e.getMaxCapacity() - pathFlow);
                 e.setFlow(e.getFlow() + pathFlow);
                 int insertPosition = residualGraph.getEdgePosition(e.getEndNode(), e.getStartNode());
                 if (insertPosition >= 0){

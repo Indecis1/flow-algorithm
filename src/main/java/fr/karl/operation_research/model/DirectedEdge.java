@@ -14,6 +14,12 @@ public class DirectedEdge implements Comparable<DirectedEdge>, Serializable {
     public DirectedEdge() {
     }
 
+    public DirectedEdge(int startNode, int endNode, float cost) {
+        this.cost = cost;
+        this.startNode = startNode;
+        this.endNode = endNode;
+    }
+
     public DirectedEdge(int startNode, int endNode, float cost, float maxCapacity) {
         this.cost = cost;
         this.maxCapacity = maxCapacity;

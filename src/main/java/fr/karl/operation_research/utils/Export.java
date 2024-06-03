@@ -21,7 +21,7 @@ import static guru.nidi.graphviz.model.Link.to;
 
 public class Export {
 
-    public static void printMaxFlow(DirectedGraph graph, float maxFlow){
+    public static void printMaxFlow(DirectedGraph graph, float maxFlow, boolean originalFlowOnly){
         Map<Integer, List<DirectedEdge>> adjacencyList = graph.getAdjacencyList();
         System.out.printf("--------------------------------%n");
         System.out.printf(" Max Flow Algorithm Result      %n");
@@ -30,16 +30,22 @@ public class Export {
         System.out.printf("--------------------------------%n");
         for(int v : adjacencyList.keySet()){
             for (DirectedEdge e : adjacencyList.get(v)){
-                if(e.getFlow() != 0)
+                boolean flowCondition = e.getFlow() != 0;
+                if (originalFlowOnly){
+                    flowCondition = e.getFlow() > 0;
+                }
+                if(flowCondition)
                     System.out.printf("| %-9d | %-8d | %6.2f |%n", e.getStartNode(), e.getEndNode(), e.getFlow());
             }
         }
         System.out.printf("--------------------------------%n");
         System.out.printf("-- The max flow is: %7f --%n", maxFlow);
         System.out.printf("--------------------------------%n");
-        System.out.printf(" Note: The negative flow represent %n");
-        System.out.printf(" the arc created in the residual graph %n");
-        System.out.printf("--------------------------------%n");
+        if (!originalFlowOnly){
+            System.out.printf(" Note: The negative flow represent %n");
+            System.out.printf(" the arc created in the residual graph %n");
+            System.out.printf("--------------------------------%n");
+        }
         System.out.println("\n");
     }
 
@@ -56,7 +62,7 @@ public class Export {
         System.out.println("\n");
     }
 
-    public static void printMinCostMaxFlow(DirectedGraph graph, float maxFlow, float minCost){
+    public static void printMinCostMaxFlow(DirectedGraph graph, float maxFlow, float minCost, boolean originalFlowOnly){
         Map<Integer, List<DirectedEdge>> adjacencyList = graph.getAdjacencyList();
         System.out.printf("------------------------------------%n");
         System.out.printf(" Min Cost Max Flow Algorithm Result %n");
@@ -65,22 +71,23 @@ public class Export {
         System.out.printf("------------------------------------%n");
         for(int v : adjacencyList.keySet()){
             for (DirectedEdge e : adjacencyList.get(v)){
-                if(e.getFlow() != 0)
+                boolean flowCondition = e.getFlow() != 0;
+                if (originalFlowOnly){
+                    flowCondition = e.getFlow() > 0;
+                }
+                if(flowCondition)
                     System.out.printf("| %-9d | %-8d | %6.2f |%n", e.getStartNode(), e.getEndNode(), e.getFlow());
-
-//                    if(e.getFlow() < 0)
-//                        System.out.println("\t" + e.getStartNode() + "\t\t\t" + e.getEndNode() + "\t\t " + e.getFlow() + "\t\t Arc created in the residual graph");
-//                    else
-//                        System.out.println("\t" + e.getStartNode() + "\t\t\t" + e.getEndNode() + "\t\t " + e.getFlow() + "\t\t\t" + e.getMaxCapacity());
             }
         }
         System.out.printf("------------------------------------%n");
         System.out.printf("---- The max flow is: %7.2f ----%n", maxFlow);
         System.out.printf("---- The min cost is: %7.2f ----%n", minCost);
         System.out.printf("------------------------------------%n");
-        System.out.printf(" Note: The negative flow represent %n");
-        System.out.printf(" the arc created in the residual graph %n");
-        System.out.printf("------------------------------------%n");
+        if (!originalFlowOnly){
+            System.out.printf(" Note: The negative flow represent %n");
+            System.out.printf(" the arc created in the residual graph %n");
+            System.out.printf("------------------------------------%n");
+        }
         System.out.println("\n");
 
 //        Export.showGraph(graph, "MinCostMaxFlow", "/home/karl/Projects/operation_research/project/resources/graphV.png");

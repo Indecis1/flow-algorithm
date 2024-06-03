@@ -36,16 +36,16 @@ public class Main {
             if(cliArgs.algorithm.compareToIgnoreCase("all") == 0){
 
                 Tuple<Float, DirectedGraph> maxFlowResult = graph.maximumFlow();
-                Export.printMaxFlow(maxFlowResult.getY(), maxFlowResult.getX());
+                Export.printMaxFlow(maxFlowResult.getY(), maxFlowResult.getX(), cliArgs.originalFlowOnly);
                 List<DirectedEdge> edges = graph.minCut(maxFlowResult.getY());
                 Export.printMinCut(edges);
                 Tuple<Tuple<Float, Float>, DirectedGraph> result = graph.minCostMaxFlow();
-                Export.printMinCostMaxFlow(result.getY(), result.getX().getX(), result.getX().getY());
+                Export.printMinCostMaxFlow(result.getY(), result.getX().getX(), result.getX().getY(), cliArgs.originalFlowOnly);
 
             } else if (cliArgs.algorithm.compareToIgnoreCase("max_flow") == 0) {
 
                 Tuple<Float, DirectedGraph> maxFlowResult = graph.maximumFlow();
-                Export.printMaxFlow(maxFlowResult.getY(), maxFlowResult.getX());
+                Export.printMaxFlow(maxFlowResult.getY(), maxFlowResult.getX(), cliArgs.originalFlowOnly);
 
             } else if (cliArgs.algorithm.compareToIgnoreCase("min_cut") == 0) {
 
@@ -55,7 +55,7 @@ public class Main {
             } else if (cliArgs.algorithm.compareToIgnoreCase("max_flow_min_cost") == 0) {
 
                 Tuple<Tuple<Float, Float>, DirectedGraph> result = graph.minCostMaxFlow();
-                Export.printMinCostMaxFlow(result.getY(), result.getX().getX(), result.getX().getY());
+                Export.printMinCostMaxFlow(result.getY(), result.getX().getX(), result.getX().getY(), cliArgs.originalFlowOnly);
 
             }
 
