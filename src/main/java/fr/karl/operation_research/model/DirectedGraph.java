@@ -31,7 +31,12 @@ public class DirectedGraph {
         List<DirectedEdge> edgeList = adjacencyList.get(startNode);
         DirectedEdge e = new DirectedEdge();
         e.setEndNode(endNode);
-        return Collections.binarySearch(edgeList, e);
+        return Collections.binarySearch(edgeList, e, new Comparator<DirectedEdge>() {
+            @Override
+            public int compare(DirectedEdge o1, DirectedEdge o2) {
+                return Integer.compare(o1.getEndNode(), o2.getEndNode());
+            }
+        });
     }
 
     public Tuple<Float, DirectedGraph> maximumFlow(){

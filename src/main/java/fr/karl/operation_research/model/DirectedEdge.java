@@ -2,7 +2,7 @@ package fr.karl.operation_research.model;
 
 import java.io.Serializable;
 
-public class DirectedEdge implements Comparable<DirectedEdge>, Serializable {
+public class DirectedEdge implements Serializable {
 
     private float cost;
     private float maxCapacity;
@@ -68,8 +68,4 @@ public class DirectedEdge implements Comparable<DirectedEdge>, Serializable {
         this.endNode = endNode;
     }
 
-    @Override
-    public int compareTo(DirectedEdge o) {
-        return Integer.compare(endNode, o.endNode);
-    }
 }
