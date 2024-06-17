@@ -23,7 +23,7 @@ result is the max flow, the mi, cost and the flow in each edge of the graph
 **Note:** In the result of `max_flow` and `max_flow_min_cost` we have edge with
 negative flow. They represent edge that are created in the residual graph.
 
-Here is an example in a linux OS: ` java -jar ./flow_algorithm-1.0-SNAPSHOT.jar -a all --original-flow-only -p /home/test/Projects/operation_research/project/resources/graph_dataV.txt`
+Here is an example in a linux OS: ` java -jar ./flow_algorithm-1.0-SNAPSHOT.jar -a all --original-flow-only --dir-path /home/test/Projects/operation_research/project/resources -p /home/test/Projects/operation_research/project/resources/graph_dataV.txt`
 The norm of the path depend of the system in Windows based system replaces the `/` with `\ `.
 In this command we compute the max flow, the min cut and the max flow min cut. We print only the flow in edge of 
 the original graph, we don't consider the edge created in the residual graph.
