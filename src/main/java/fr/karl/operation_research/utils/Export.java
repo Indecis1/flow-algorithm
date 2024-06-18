@@ -84,7 +84,7 @@ public class Export {
         }
         System.out.printf("------------------------------------%n");
         System.out.printf("---- The max flow is: %7.2f ----%n", maxFlow);
-        System.out.printf("---- The min cost is: %7.2f ----%n", minCost);
+        System.out.printf("---- The cost is: %7.2f  -----%n", minCost);
         System.out.printf("------------------------------------%n");
         if (!originalFlowOnly) {
             System.out.printf(" Note: The negative flow represent %n");
